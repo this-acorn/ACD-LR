@@ -1,8 +1,6 @@
-# An Analysis of Deep Learning Architectures for Anatomical Completeness Detection for Low-Resource Clinics
-This repository is a template for your CMPT 419 course project.
-Replace the title with your project title, and **add a snappy acronym that people remember (mnemonic)**.
+# ACD-LR: Benchmarking of Deep Learning Architectures for Anatomical Completeness Detection in Low-Resource Settings
 
-Add a 1-2 line summary of your project here.
+In low-resource medical regions, the ability to ensure complete CTs is crucial to minimize costs and resource usage. This paper evaluates and benchmarks multiple methods for detecting anatomical completeness that reduce re-scans and improve data usage in rural clinics.
 
 ## Important Links
 
