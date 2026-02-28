@@ -1,4 +1,4 @@
-# SFU CMPT 419 Project Template -- Replace with project title
+# An Analysis of Deep Learning Architectures for Anatomical Completeness Detection for Low-Resource Clinics
 This repository is a template for your CMPT 419 course project.
 Replace the title with your project title, and **add a snappy acronym that people remember (mnemonic)**.
 
@@ -6,13 +6,8 @@ Add a 1-2 line summary of your project here.
 
 ## Important Links
 
-| [Timesheet](https://google.com) | [Slack channel](https://google.com) | [Project report](https://google.com) |
+| [Timesheet](https://1sfu-my.sharepoint.com/:x:/g/personal/hamarneh_sfu_ca/IQD5ZONvPfSPQoJO-sf4h3DTARjtVALMua4Mh8MvwCrvAzY?e=USFcHz) | [GitHub Repository](https://github.com/sfu-cmpt419/2026_1_project_11) | [Project Report (Overleaf)](https://www.overleaf.com/3468189672jgrmtvkrsrrj#9c71d8) |
 |-----------|---------------|-------------------------|
-
-
-- Timesheet: Link your timesheet (pinned in your project's Slack channel) where you track per student the time and tasks completed/participated for this project/
-- Slack channel: Link your private Slack project channel.
-- Project report: Link your Overleaf project report document.
 
 
 ## Video/demo/GIF
