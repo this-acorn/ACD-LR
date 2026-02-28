@@ -11,6 +11,8 @@ In low-resource medical regions, the ability to ensure complete CTs is crucial t
 ## Video/demo/GIF
 Record a short video (1:40 - 2 minutes maximum) or gif or a simple screen recording or even using PowerPoint with audio or with text, showcasing your work.
 
+## Dataset
+We will be using [luna16 dataset](https://zenodo.org/records/3723295). This dataset includes the images from the LIDC/IDRI dataset in a different format, together with additional annotations
 
 ## Table of Contents
 1. [Demo](#demo)
