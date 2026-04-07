@@ -1,4 +1,8 @@
 src/saved_models/
+src/models/*.pth
+src/cache/
+src/.venv/
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

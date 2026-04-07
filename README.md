@@ -1,91 +1,81 @@
-# ACD-LR: Benchmarking of Deep Learning Architectures for Anatomical Completeness Detection in Low-Resource Settings
+# ACD-LR: Benchmarking Deep Learning for Anatomical Completeness Detection in Low-Resource Settings
 
-In low-resource medical regions, the ability to ensure complete CTs is crucial to minimize costs and resource usage. This paper evaluates and benchmarks multiple methods for detecting anatomical completeness that reduce re-scans and improve data usage in rural clinics.
+In low-resource medical regions, the ability to ensure complete CTs is crucial to minimize costs and resource usage. This project evaluates and benchmarks multiple 3D segmentation architectures for detecting synthetic corruptions in CT scans, using the LUNA16 dataset.
 
 ## Important Links
 
 | [Timesheet](https://1sfu-my.sharepoint.com/:x:/g/personal/hamarneh_sfu_ca/IQD5ZONvPfSPQoJO-sf4h3DTARjtVALMua4Mh8MvwCrvAzY?e=USFcHz) | [GitHub Repository](https://github.com/sfu-cmpt419/2026_1_project_11) | [Project Report (Overleaf)](https://www.overleaf.com/3468189672jgrmtvkrsrrj#9c71d8) |
 |-----------|---------------|-------------------------|
 
+## Repository Structure
 
-## Video/demo/GIF
-Record a short video (1:40 - 2 minutes maximum) or gif or a simple screen recording or even using PowerPoint with audio or with text, showcasing your work.
+```
+repository
+├── src/
+│   ├── main.ipynb           ## Full training & evaluation notebook
+│   ├── app.py               ## Streamlit web app for interactive demo
+│   ├── requirements.txt     ## Python dependencies for the web app
+│   ├── .streamlit/          ## Streamlit config (light mode, no deploy button)
+│   ├── data/                ## Sample test scans (.npz files)
+│   ├── models/              ## Place downloaded model weights here
+│   └── research/            ## Earlier research notebooks
+├── README.md
+└── .gitignore
+```
 
 ## Dataset
-We will be using [luna16 dataset](https://zenodo.org/records/3723295). This dataset includes the images from the LIDC/IDRI dataset in a different format, together with additional annotations
 
-## Table of Contents
-1. [Demo](#demo)
+We use the [LUNA16 dataset](https://zenodo.org/records/3723295) (~888 CT scans). Synthetic corruptions (cropping, motion blur, slicing, noise, etc.) are applied to generate training data. Four sample scans are included in `src/data/`.
 
-2. [Installation](#installation)
+## Running the Web App
 
-3. [Reproducing this project](#repro)
+### 1. Download Model Weights
 
-4. [Guidance](#guide)
+Download the trained model weights from Google Drive:
 
+**[Download Models (Google Drive)](https://drive.google.com/drive/folders/1JUga8AbjGj9JfE606_bqcvlTCV99Ydx-?usp=sharing)**
 
-<a name="demo"></a>
-## 1. Example demo
-
-A minimal example to showcase your work
-
-```python
-from amazing import amazingexample
-imgs = amazingexample.demo()
-for img in imgs:
-    view(img)
+Place the three `.pth` files into `src/models/`:
+```
+src/models/
+├── best_unet.pth
+├── best_resunet.pth
+└── best_attn_unet.pth
 ```
 
-### What to find where
-
-Explain briefly what files are found where
+### 2. Install Dependencies
 
 ```bash
-repository
-├── src                          ## source code of the package itself
-├── scripts                      ## scripts, if needed
-├── docs                         ## If needed, documentation   
-├── README.md                    ## You are here
-├── requirements.yml             ## If you use conda
+cd src
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-<a name="installation"></a>
-
-## 2. Installation
-
-Provide sufficient instructions to reproduce and install your project. 
-Provide _exact_ versions, test on CSIL or reference workstations.
+### 3. Run the App
 
 ```bash
-git clone $THISREPO
-cd $THISREPO
-conda env create -f requirements.yml
-conda activate amazing
+cd src
+source .venv/bin/activate
+streamlit run app.py
 ```
 
-<a name="repro"></a>
-## 3. Reproduction
-Demonstrate how your work can be reproduced, e.g. the results in your report.
-```bash
-mkdir tmp && cd tmp
-wget https://yourstorageisourbusiness.com/dataset.zip
-unzip dataset.zip
-conda activate amazing
-python evaluate.py --epochs=10 --data=/in/put/dir
-```
-Data can be found at ...
-Output will be saved in ...
+The terminal will display a Local URL — open it in your browser.
 
-<a name="guide"></a>
-## 4. Guidance
+> **Note:** The app may take a moment to load initially. After clicking Run Inference, please allow 10-30 seconds for the model to process the scan. The 3D Residual U-Net is the largest model and will take the longest.
 
-- Use [git](https://git-scm.com/book/en/v2)
-    - Do NOT use history re-editing (rebase)
-    - Commit messages should be informative:
-        - No: 'this should fix it', 'bump' commit messages
-        - Yes: 'Resolve invalid API call in updating X'
-    - Do NOT include IDE folders (.idea), or hidden files. Update your .gitignore where needed.
-    - Do NOT use the repository to upload data
-- Use [VSCode](https://code.visualstudio.com/) or a similarly powerful IDE
-- Use [Copilot for free](https://dev.to/twizelissa/how-to-enable-github-copilot-for-free-as-student-4kal)
-- Sign up for [GitHub Education](https://education.github.com/) 
+### Using the App
+
+1. Select a model from the sidebar (3D U-Net, 3D Residual U-Net, or 3D Attention U-Net)
+2. Select a sample scan from the dropdown
+3. Click **Run Inference** and wait for it to finish
+4. Use the Z-axis slider to scroll through slices and view the predicted corruption mask
+
+## Notebook
+
+All training, evaluation, and analysis code is in `src/main.ipynb`. This notebook was run on Kaggle with GPU and covers:
+
+- Data preprocessing and synthetic corruption generation
+- Training of all three models (3D U-Net, 3D Residual U-Net, 3D Attention U-Net)
+- Per-corruption and overall evaluation metrics (Dice, IoU)
+- Visualizations and model comparison
