@@ -62,7 +62,7 @@ streamlit run app.py
 
 The terminal will display a Local URL — open it in your browser.
 
-> **Note:** The app may take a moment to load initially. After clicking Run Inference, please allow 10-30 seconds for the model to process the scan. The 3D Residual U-Net is the largest model and will take the longest.
+> **Note:** The first launch may take 1-2 minutes as PyTorch and MONAI load for the first time. After clicking Run Inference, please allow 10-30 seconds for the model to process the scan. The 3D Residual U-Net is the largest model and will take the longest.
 
 ### Using the App
 
