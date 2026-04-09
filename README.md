@@ -14,7 +14,7 @@ repository
 ├── src/
 │   ├── main.ipynb           ## Full training & evaluation notebook
 │   ├── app.py               ## Streamlit web app for interactive demo
-│   ├── requirements.txt     ## Python dependencies for the web app
+│   ├── requirements.txt     ## Python dependencies
 │   ├── .streamlit/          ## Streamlit config (light mode, no deploy button)
 │   ├── data/                ## Sample test scans (.npz files)
 │   ├── models/              ## Place downloaded model weights here
@@ -79,3 +79,14 @@ All training, evaluation, and analysis code is in `src/main.ipynb`. This noteboo
 - Training of all three models (3D U-Net, 3D Residual U-Net, 3D Attention U-Net)
 - Per-corruption and overall evaluation metrics (Dice, IoU)
 - Visualizations and model comparison
+
+### Reproducing Training Results
+
+1. Upload the notebook to [Kaggle](https://www.kaggle.com/) and add the LUNA16 dataset as an input
+2. Alternatively, run locally by setting environment variables to point to your data:
+   ```bash
+   export LUNA16_DATA_DIR="/path/to/luna16/subsets"
+   export LUNA16_MASK_DIR="/path/to/seg-lungs-LUNA16"
+   export OUTPUT_DIR="./dataset_3d_maps"
+   ```
+3. A GPU is strongly recommended — training takes ~2 hours on a T4
