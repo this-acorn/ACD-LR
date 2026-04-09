@@ -27,7 +27,29 @@ repository
 
 We use the [LUNA16 dataset](https://zenodo.org/records/3723295) (~888 CT scans). Synthetic corruptions (cropping, motion blur, slicing, noise, etc.) are applied to generate training data. Four sample scans are included in `src/data/`.
 
-## Running the Web App
+## Code Overview
+
+All project code (preprocessing, training, evaluation, and analysis) is in `src/main.ipynb`. This notebook was run on Kaggle with GPU and covers:
+
+- Data preprocessing and synthetic corruption generation
+- Training of all three models (3D U-Net, 3D Residual U-Net, 3D Attention U-Net)
+- Per-corruption and overall evaluation metrics (Dice, IoU)
+- Visualizations and model comparison
+
+### Reproducing Training Results
+
+1. Upload the notebook to [Kaggle](https://www.kaggle.com/) and add the LUNA16 dataset as an input
+2. Alternatively, run locally by setting environment variables to point to your data:
+   ```bash
+   export LUNA16_DATA_DIR="/path/to/luna16/subsets"
+   export LUNA16_MASK_DIR="/path/to/seg-lungs-LUNA16"
+   export OUTPUT_DIR="./dataset_3d_maps"
+   ```
+3. A GPU is strongly recommended — training takes ~8 hours on a P100
+
+## Web App
+
+We also provide a Streamlit web app for interactively testing the trained models on sample scans.
 
 ### 1. Download Model Weights
 
@@ -70,23 +92,3 @@ The terminal will display a Local URL — open it in your browser.
 2. Select a sample scan from the dropdown
 3. Click **Run Inference** and wait for it to finish
 4. Use the Z-axis slider to scroll through slices and view the predicted corruption mask
-
-## Notebook
-
-All training, evaluation, and analysis code is in `src/main.ipynb`. This notebook was run on Kaggle with GPU and covers:
-
-- Data preprocessing and synthetic corruption generation
-- Training of all three models (3D U-Net, 3D Residual U-Net, 3D Attention U-Net)
-- Per-corruption and overall evaluation metrics (Dice, IoU)
-- Visualizations and model comparison
-
-### Reproducing Training Results
-
-1. Upload the notebook to [Kaggle](https://www.kaggle.com/) and add the LUNA16 dataset as an input
-2. Alternatively, run locally by setting environment variables to point to your data:
-   ```bash
-   export LUNA16_DATA_DIR="/path/to/luna16/subsets"
-   export LUNA16_MASK_DIR="/path/to/seg-lungs-LUNA16"
-   export OUTPUT_DIR="./dataset_3d_maps"
-   ```
-3. A GPU is strongly recommended — training takes ~8 hours on a P100
