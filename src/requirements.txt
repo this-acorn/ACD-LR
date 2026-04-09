@@ -1,5 +1,9 @@
-streamlit
-torch
-monai
-numpy
-matplotlib
+streamlit>=1.30
+torch>=2.9.0
+torchvision>=0.20.0
+monai>=1.5.2
+numpy>=1.26
+matplotlib>=3.8
+SimpleITK>=2.3
+scikit-learn>=1.4
+scipy>=1.12

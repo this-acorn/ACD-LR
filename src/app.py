@@ -29,9 +29,14 @@ def make_model(name):
 
 
 def load_model(name):
-    print(f"loading model: {name}")
     model = make_model(name)
     weights_path = os.path.join(MODEL_DIR, MODEL_NAMES[name])
+    if not os.path.isfile(weights_path):
+        raise FileNotFoundError(
+            f"Model weights not found at {weights_path}. "
+            f"Download them from the Google Drive link in the README and place "
+            f"the .pth files into the src/models/ directory."
+        )
     state = torch.load(weights_path, map_location="cpu", weights_only=True)
     model.load_state_dict(state)
     model.eval()
@@ -87,6 +92,9 @@ st.sidebar.header("Settings")
 model_choice = st.sidebar.selectbox("Select Model", list(MODEL_NAMES.keys()))
 
 scan_files = get_scan_list()
+if not scan_files:
+    st.error(f"No .npz scan files found in {DATA_DIR}. Check that the data/ directory contains sample scans.")
+    st.stop()
 scan_names = [os.path.basename(f) for f in scan_files]
 scan_pick = st.sidebar.selectbox("Select Scan", scan_names)
 
@@ -107,26 +115,28 @@ if run_button:
     scan_path = scan_files[scan_names.index(scan_pick)]
     vol, ctype = load_scan(scan_path)
 
-    if "loaded_model_name" in st.session_state and st.session_state.loaded_model_name != model_choice:
-        del st.session_state.loaded_model
-        gc.collect()
+    try:
+        if "loaded_model_name" in st.session_state and st.session_state.loaded_model_name != model_choice:
+            del st.session_state.loaded_model
+            gc.collect()
 
-    if "loaded_model" not in st.session_state or st.session_state.loaded_model_name != model_choice:
-        with st.spinner(f"Loading {model_choice}..."):
-            st.session_state.loaded_model = load_model(model_choice)
-            st.session_state.loaded_model_name = model_choice
+        if "loaded_model" not in st.session_state or st.session_state.loaded_model_name != model_choice:
+            with st.spinner(f"Loading {model_choice}..."):
+                st.session_state.loaded_model = load_model(model_choice)
+                st.session_state.loaded_model_name = model_choice
 
-    model = st.session_state.loaded_model
+        model = st.session_state.loaded_model
 
-    with st.spinner("Running inference..."):
-        mask = run_inference(model, vol)
+        with st.spinner("Running inference..."):
+            mask = run_inference(model, vol)
 
-    st.session_state.pred_mask = mask
-    st.session_state.current_vol = vol
-    st.session_state.last_scan = scan_pick
-    st.session_state.last_model = model_choice
-    st.session_state.corruption_type = ctype
-    print(f"done inference for {scan_pick} with {model_choice}")
+        st.session_state.pred_mask = mask
+        st.session_state.current_vol = vol
+        st.session_state.last_scan = scan_pick
+        st.session_state.last_model = model_choice
+        st.session_state.corruption_type = ctype
+    except FileNotFoundError as e:
+        st.error(str(e))
 
 if st.session_state.current_vol is not None and st.session_state.pred_mask is not None:
     vol = st.session_state.current_vol
