@@ -89,4 +89,4 @@ All training, evaluation, and analysis code is in `src/main.ipynb`. This noteboo
    export LUNA16_MASK_DIR="/path/to/seg-lungs-LUNA16"
    export OUTPUT_DIR="./dataset_3d_maps"
    ```
-3. A GPU is strongly recommended — training takes ~2 hours on a T4
+3. A GPU is strongly recommended — training takes ~8 hours on a P100
