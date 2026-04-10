@@ -3,3 +3,4 @@ torch
 monai
 numpy
 matplotlib
+scipy

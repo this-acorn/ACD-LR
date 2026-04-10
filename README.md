@@ -51,7 +51,13 @@ All project code (preprocessing, training, evaluation, and analysis) is in `src/
 
 ## Web App
 
-We also provide a Streamlit web app for interactively testing the trained models on sample scans.
+We provide a Streamlit web app for interactively testing the trained models on sample scans.
+
+### Live Demo (Cloud)
+
+**[Launch App](https://doutori-acd-lr-demo.hf.space/)** — No installation required. Runs on Hugging Face Spaces.
+
+### Local Setup
 
 ### 1. Download Model Weights
 
