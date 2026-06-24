@@ -2,6 +2,10 @@
 
 In low-resource medical regions, the ability to ensure complete CTs is crucial to minimize costs and resource usage. This project evaluates and benchmarks multiple 3D segmentation architectures for detecting synthetic corruptions in CT scans, using the LUNA16 dataset.
 
+## Live Demo (Cloud)
+
+**[Launch App](https://doutori-acd-lr-demo.hf.space/)** — No installation required. Runs on Hugging Face Spaces.
+
 ![Qualitative Results](src/assets/qualitative_results.png)
 
 ## Important Links
@@ -52,10 +56,6 @@ All project code (preprocessing, training, evaluation, and analysis) is in `src/
 ## Web App
 
 We provide a Streamlit web app for interactively testing the trained models on sample scans.
-
-### Live Demo (Cloud)
-
-**[Launch App](https://doutori-acd-lr-demo.hf.space/)** — No installation required. Runs on Hugging Face Spaces.
 
 ### Local Setup
 
